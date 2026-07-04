@@ -4,7 +4,7 @@ app = "bank-of-china-global"
 primary_region = "iad"
 
 [build]
-  builder = "dockerfile"
+  builder = "buildpacks"
 
 [env]
   NODE_ENV = "production"
