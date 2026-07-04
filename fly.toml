@@ -4,7 +4,7 @@ app = "bank-of-china-global"
 primary_region = "iad"
 
 [build]
-  builder = "heroku"
+  builder = "dockerfile"
 
 [env]
   NODE_ENV = "production"
