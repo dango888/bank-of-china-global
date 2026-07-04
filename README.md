@@ -1,34 +1,42 @@
 # Bank of China Global
 
-Professional online wallet application deployed on Fly.io.
+Professional online wallet application with login, dashboard, and admin panel.
 
 ## Features
 
-- Professional banking UI with Bank of China design
-- User authentication
-- Account dashboard with balance display
-- Admin panel for customer management
-- Responsive design
+- ✓ User authentication with JWT
+- ✓ User dashboard with balance display
+- ✓ Admin panel for customer management
+- ✓ Professional BOC-style design
+- ✓ SQLite database
+- ✓ Responsive design
+
+## Demo Account
+
+- **Username:** DANGO888
+- **Password:** dango888
+- **Balance:** $38,433.00 USD
 
 ## Deployment
 
-Deployed on **Fly.io** (Free tier)
+Deployed on **Fly.io**
 
 ### Local Development
 
 ```bash
 npm install
-npm run dev
+npm start
 ```
+
+Visit: `http://localhost:3000`
 
 ### Production
 
-Deployed automatically from GitHub.
+Deployed automatically from GitHub to Fly.io.
 
-## Status
+## Domain
 
-✓ Running on Fly.io
-✓ Domain: bankofchinaglobal.online (pending DNS configuration)
+**bankofchinaglobal.online**
 
 ## Support
 
