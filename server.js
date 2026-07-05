@@ -470,6 +470,58 @@ function getDashboardPage(user) {
       background: #e0e0e0;
     }
     
+    .transactions-card {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .transactions-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    .transactions-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .transactions-table th {
+      background: #f8f8f8;
+      padding: 12px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    
+    .transactions-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .transactions-table tr:hover {
+      background: #f8f8f8;
+    }
+    
+    .status-completed {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
     .footer {
       text-align: center;
       padding: 20px;
@@ -510,8 +562,62 @@ function getDashboardPage(user) {
       </div>
       
       <div class="action-buttons">
-        <button class="btn btn-primary">转账 / Transfer</button>
-        <button class="btn btn-secondary">查看交易 / View Transactions</button>
+        <button class="btn btn-primary" onclick="showTab('overview')">概览 / Overview</button>
+        <button class="btn btn-secondary" onclick="showTab('transactions')">交易 / Transactions</button>
+      </div>
+    </div>
+    
+    <div id="transactions-section" style="display: none; margin-top: 30px;">
+      <div class="transactions-card">
+        <h2 class="transactions-title">交易历史 / Transaction History</h2>
+        <table class="transactions-table">
+          <thead>
+            <tr>
+              <th>日期 / Date</th>
+              <th>金额 / Amount</th>
+              <th>类型 / Type</th>
+              <th>状态 / Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026-01-24</td>
+              <td>$1,850.00</td>
+              <td>转账 / Transfer</td>
+              <td><span class="status-completed">已完成 / Completed</span></td>
+            </tr>
+            <tr>
+              <td>2026-02-25</td>
+              <td>$1,650.00</td>
+              <td>转账 / Transfer</td>
+              <td><span class="status-completed">已完成 / Completed</span></td>
+            </tr>
+            <tr>
+              <td>2026-03-12</td>
+              <td>$12,350.00</td>
+              <td>转账 / Transfer</td>
+              <td><span class="status-completed">已完成 / Completed</span></td>
+            </tr>
+            <tr>
+              <td>2026-04-23</td>
+              <td>$5,116.50</td>
+              <td>转账 / Transfer</td>
+              <td><span class="status-completed">已完成 / Completed</span></td>
+            </tr>
+            <tr>
+              <td>2026-05-26</td>
+              <td>$12,350.00</td>
+              <td>转账 / Transfer</td>
+              <td><span class="status-completed">已完成 / Completed</span></td>
+            </tr>
+            <tr>
+              <td>2026-06-21</td>
+              <td>$5,116.50</td>
+              <td>转账 / Transfer</td>
+              <td><span class="status-completed">已完成 / Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -519,6 +625,21 @@ function getDashboardPage(user) {
   <div class="footer">
     <p>© 2026 Bank of China Global. All rights reserved. | 中国银行版权所有</p>
   </div>
+  
+  <script>
+    function showTab(tab) {
+      const welcomeSection = document.querySelector('.welcome-section');
+      const transactionsSection = document.getElementById('transactions-section');
+      
+      if (tab === 'overview') {
+        welcomeSection.style.display = 'block';
+        transactionsSection.style.display = 'none';
+      } else if (tab === 'transactions') {
+        welcomeSection.style.display = 'none';
+        transactionsSection.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>`;
 }
