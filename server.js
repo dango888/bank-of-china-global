@@ -307,7 +307,7 @@ function getDashboardPage(user) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>账户仪表板 | Account Dashboard</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -453,11 +453,12 @@ function getDashboardPage(user) {
     }
     
     .balance-amount {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: 1px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 2px;
       margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .balance-currency {
