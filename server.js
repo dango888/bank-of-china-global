@@ -108,11 +108,12 @@ function getLoginPage() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>中国银行全球 | Bank of China Global</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
       min-height: 100vh;
       display: flex;
@@ -129,21 +130,22 @@ function getLoginPage() {
     
     .login-container {
       background: white;
-      border-radius: 8px;
+      border-radius: 20px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       overflow: hidden;
     }
     
     .login-header {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
-      padding: 40px 20px;
+      padding: 50px 20px;
       text-align: center;
       color: white;
     }
     
     .logo-text {
-      font-size: 28px;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 800;
       margin-bottom: 8px;
       letter-spacing: 2px;
     }
@@ -151,7 +153,7 @@ function getLoginPage() {
     .logo-subtitle {
       font-size: 12px;
       opacity: 0.9;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       font-weight: 300;
     }
     
@@ -165,29 +167,30 @@ function getLoginPage() {
     
     label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       font-size: 13px;
       font-weight: 600;
       color: #333;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
     
     input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 14px 16px;
       border: 1px solid #e0e0e0;
-      border-radius: 4px;
+      border-radius: 12px;
       font-size: 14px;
       transition: all 0.3s ease;
-      font-family: inherit;
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
     }
     
     input:focus {
       outline: none;
       border-color: #CC0000;
-      box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
-      background-color: #fafafa;
+      box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.08);
+      background: white;
     }
     
     .login-button {
@@ -196,18 +199,19 @@ function getLoginPage() {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 12px;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(204, 0, 0, 0.2);
     }
     
     .login-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(204, 0, 0, 0.3);
+      box-shadow: 0 12px 30px rgba(204, 0, 0, 0.3);
     }
     
     .login-button:active {
@@ -223,25 +227,12 @@ function getLoginPage() {
     }
     
     .login-footer {
-      background: #f8f8f8;
+      background: #f8f9fa;
       padding: 20px;
       text-align: center;
       font-size: 12px;
-      color: #666;
-      border-top: 1px solid #e0e0e0;
-    }
-    
-    .footer-text {
-      margin-bottom: 8px;
-    }
-    
-    .security-badge {
-      display: inline-block;
-      padding: 4px 8px;
-      background: #f0f0f0;
-      border-radius: 3px;
-      font-size: 11px;
       color: #999;
+      border-top: 1px solid #e0e0e0;
     }
   </style>
 </head>
@@ -272,8 +263,7 @@ function getLoginPage() {
       </div>
       
       <div class="login-footer">
-        <div class="footer-text">© 2026 Bank of China Global. All rights reserved.</div>
-        <div class="security-badge">🔒 Secure Connection</div>
+        <p>© 2026 Bank of China Global. All rights reserved.</p>
       </div>
     </div>
   </div>
@@ -309,6 +299,7 @@ function getLoginPage() {
 }
 
 function getDashboardPage(user) {
+  const userName = 'Mr Jose Daniel Gomez Marin';
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -316,33 +307,36 @@ function getDashboardPage(user) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>账户仪表板 | Account Dashboard</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-      background: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
+      min-height: 100vh;
     }
     
     .navbar {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
-      padding: 16px 20px;
+      padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(204, 0, 0, 0.15);
     }
     
     .navbar-brand {
-      font-size: 18px;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 800;
       letter-spacing: 1px;
     }
     
     .navbar-menu {
       display: flex;
-      gap: 20px;
+      gap: 30px;
       align-items: center;
     }
     
@@ -350,6 +344,7 @@ function getDashboardPage(user) {
       color: white;
       text-decoration: none;
       font-size: 13px;
+      font-weight: 500;
       transition: opacity 0.3s;
     }
     
@@ -366,16 +361,30 @@ function getDashboardPage(user) {
     .welcome-section {
       background: white;
       padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
       margin-bottom: 30px;
     }
     
+    .welcome-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+    
     .welcome-title {
-      font-size: 24px;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 800;
       color: #333;
-      margin-bottom: 30px;
+    }
+    
+    .user-name {
+      font-size: 16px;
+      color: #666;
+      font-weight: 500;
+      margin-top: 8px;
     }
     
     .account-info {
@@ -386,16 +395,19 @@ function getDashboardPage(user) {
     }
     
     .info-item {
-      border-bottom: 1px solid #e0e0e0;
-      padding-bottom: 15px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
+      border-radius: 16px;
+      border: 1px solid #e8eaed;
     }
     
     .info-label {
       font-size: 12px;
       color: #999;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
     
     .info-value {
@@ -407,48 +419,70 @@ function getDashboardPage(user) {
     .balance-card {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(204, 0, 0, 0.2);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(204, 0, 0, 0.25);
       grid-column: 1 / -1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .balance-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    
+    .balance-content {
+      position: relative;
+      z-index: 1;
     }
     
     .balance-label {
       font-size: 13px;
       opacity: 0.9;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      font-weight: 500;
     }
     
     .balance-amount {
-      font-size: 36px;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 800;
       letter-spacing: 1px;
+      margin-bottom: 12px;
     }
     
     .balance-currency {
       font-size: 14px;
       opacity: 0.9;
-      margin-top: 8px;
+      font-weight: 400;
     }
     
     .action-buttons {
       display: flex;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 16px;
+      margin-top: 40px;
     }
     
     .btn {
-      padding: 12px 24px;
+      padding: 14px 28px;
       border: none;
-      border-radius: 4px;
+      border-radius: 12px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
     
     .btn-primary {
@@ -458,30 +492,33 @@ function getDashboardPage(user) {
     
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(204, 0, 0, 0.25);
     }
     
     .btn-secondary {
-      background: #f0f0f0;
-      color: #333;
+      background: white;
+      color: #CC0000;
+      border: 2px solid #CC0000;
     }
     
     .btn-secondary:hover {
-      background: #e0e0e0;
+      background: #fff5f5;
+      transform: translateY(-2px);
     }
     
     .transactions-card {
       background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     }
     
     .transactions-title {
-      font-size: 18px;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 800;
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     
     .transactions-table {
@@ -490,41 +527,43 @@ function getDashboardPage(user) {
     }
     
     .transactions-table th {
-      background: #f8f8f8;
-      padding: 12px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
+      padding: 16px;
       text-align: left;
       font-size: 12px;
       font-weight: 700;
       color: #666;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      border-bottom: 2px solid #e0e0e0;
+      border-bottom: 2px solid #e8eaed;
+      border-radius: 8px 8px 0 0;
     }
     
     .transactions-table td {
-      padding: 14px 12px;
-      border-bottom: 1px solid #e0e0e0;
+      padding: 16px;
+      border-bottom: 1px solid #e8eaed;
       font-size: 14px;
       color: #333;
+      font-weight: 500;
     }
     
     .transactions-table tr:hover {
-      background: #f8f8f8;
+      background: #f8f9fa;
     }
     
     .status-completed {
       display: inline-block;
-      padding: 4px 12px;
+      padding: 6px 14px;
       background: #e8f5e9;
       color: #2e7d32;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
     }
     
     .footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       color: #999;
       font-size: 12px;
     }
@@ -534,14 +573,19 @@ function getDashboardPage(user) {
   <div class="navbar">
     <div class="navbar-brand">中国银行 | BOC</div>
     <div class="navbar-menu">
-      <span>${user.full_name || 'Account'}</span>
+      <span style="font-weight: 500;">${userName}</span>
       <a href="/api/logout">登出 / Logout</a>
     </div>
   </div>
   
   <div class="container">
-    <div class="welcome-section">
-      <h1 class="welcome-title">欢迎回来 / Welcome Back</h1>
+    <div class="welcome-section" id="welcome-section">
+      <div class="welcome-header">
+        <div>
+          <h1 class="welcome-title">欢迎回来 / Welcome Back</h1>
+          <p class="user-name">${userName}</p>
+        </div>
+      </div>
       
       <div class="account-info">
         <div class="info-item">
@@ -555,9 +599,11 @@ function getDashboardPage(user) {
         </div>
         
         <div class="balance-card">
-          <div class="balance-label">账户余额 / Account Balance</div>
-          <div class="balance-amount">$${user.balance.toFixed(2)}</div>
-          <div class="balance-currency">USD - United States Dollar</div>
+          <div class="balance-content">
+            <div class="balance-label">账户余额 / Account Balance</div>
+            <div class="balance-amount">$${user.balance.toFixed(2)}</div>
+            <div class="balance-currency">USD - United States Dollar</div>
+          </div>
         </div>
       </div>
       
@@ -567,7 +613,7 @@ function getDashboardPage(user) {
       </div>
     </div>
     
-    <div id="transactions-section" style="display: none; margin-top: 30px;">
+    <div id="transactions-section" style="display: none;">
       <div class="transactions-card">
         <h2 class="transactions-title">交易历史 / Transaction History</h2>
         <table class="transactions-table">
@@ -628,7 +674,7 @@ function getDashboardPage(user) {
   
   <script>
     function showTab(tab) {
-      const welcomeSection = document.querySelector('.welcome-section');
+      const welcomeSection = document.getElementById('welcome-section');
       const transactionsSection = document.getElementById('transactions-section');
       
       if (tab === 'overview') {
@@ -652,27 +698,29 @@ function getAdminPage() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>管理面板 | Admin Panel</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-      background: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
     }
     
     .navbar {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
-      padding: 16px 20px;
+      padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(204, 0, 0, 0.15);
     }
     
     .navbar-brand {
-      font-size: 18px;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 800;
       letter-spacing: 1px;
     }
     
@@ -680,6 +728,7 @@ function getAdminPage() {
       color: white;
       text-decoration: none;
       font-size: 13px;
+      font-weight: 500;
     }
     
     .container {
@@ -690,14 +739,15 @@ function getAdminPage() {
     
     .admin-section {
       background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     }
     
     .admin-title {
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 800;
       color: #333;
       margin-bottom: 30px;
     }
@@ -708,31 +758,32 @@ function getAdminPage() {
     }
     
     th {
-      background: #f8f8f8;
-      padding: 12px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
+      padding: 16px;
       text-align: left;
       font-size: 12px;
       font-weight: 700;
       color: #666;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      border-bottom: 2px solid #e0e0e0;
+      border-bottom: 2px solid #e8eaed;
     }
     
     td {
-      padding: 14px 12px;
-      border-bottom: 1px solid #e0e0e0;
+      padding: 16px;
+      border-bottom: 1px solid #e8eaed;
       font-size: 14px;
       color: #333;
+      font-weight: 500;
     }
     
     tr:hover {
-      background: #f8f8f8;
+      background: #f8f9fa;
     }
     
     .footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       color: #999;
       font-size: 12px;
       margin-top: 40px;
