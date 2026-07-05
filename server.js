@@ -94,21 +94,6 @@ app.get('/api/admin/users', verifyToken, async (req, res) => {
   }
 });
 
-app.post('/api/admin/update-balance', verifyToken, async (req, res) => {
-  const user = await getUser(req.user.username);
-  if (user.role !== 'admin') {
-    return res.status(403).json({ error: 'Access denied' });
-  }
-  
-  const { userId, newBalance } = req.body;
-  try {
-    await updateUserBalance(userId, newBalance);
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to update balance' });
-  }
-});
-
 app.get('/api/logout', (req, res) => {
   res.clearCookie('token');
   res.redirect('/');
@@ -117,111 +102,190 @@ app.get('/api/logout', (req, res) => {
 // HTML Pages
 function getLoginPage() {
   return `<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>Bank of China Global - Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国银行全球 | Bank of China Global</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #333;
     }
+    
+    .login-wrapper {
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+    
     .login-container {
       background: white;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-      width: 100%;
-      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
     }
-    .logo {
+    
+    .login-header {
+      background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
+      padding: 40px 20px;
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 2em;
-      color: #CC0000;
-      font-weight: bold;
+      color: white;
     }
+    
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+    
+    .logo-subtitle {
+      font-size: 12px;
+      opacity: 0.9;
+      letter-spacing: 1px;
+      font-weight: 300;
+    }
+    
+    .login-body {
+      padding: 40px;
+    }
+    
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
+    
     label {
       display: block;
       margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
       color: #333;
-      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
+    
     input {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 1em;
+      padding: 12px 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
     }
+    
     input:focus {
       outline: none;
       border-color: #CC0000;
-      box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+      box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+      background-color: #fafafa;
     }
-    button {
+    
+    .login-button {
       width: 100%;
-      padding: 12px;
-      background: #CC0000;
+      padding: 14px;
+      background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      font-weight: bold;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    button:hover {
-      background: #990000;
+    
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(204, 0, 0, 0.3);
     }
-    .error {
+    
+    .login-button:active {
+      transform: translateY(0);
+    }
+    
+    .error-message {
       color: #CC0000;
-      margin-top: 10px;
+      font-size: 13px;
+      margin-top: 12px;
       text-align: center;
+      min-height: 18px;
     }
-    .demo-info {
-      background: #f0f0f0;
-      padding: 15px;
-      border-radius: 5px;
-      margin-top: 20px;
-      font-size: 0.9em;
+    
+    .login-footer {
+      background: #f8f8f8;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
       color: #666;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .footer-text {
+      margin-bottom: 8px;
+    }
+    
+    .security-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #f0f0f0;
+      border-radius: 3px;
+      font-size: 11px;
+      color: #999;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="logo">🏦 Bank of China Global</div>
-    <form id="loginForm">
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" required>
+  <div class="login-wrapper">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="logo-text">中国银行</div>
+        <div class="logo-subtitle">BANK OF CHINA GLOBAL</div>
       </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" required>
+      
+      <div class="login-body">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">用户名 / Username</label>
+            <input type="text" id="username" name="username" required autocomplete="off">
+          </div>
+          
+          <div class="form-group">
+            <label for="password">密码 / Password</label>
+            <input type="password" id="password" name="password" required autocomplete="off">
+          </div>
+          
+          <button type="submit" class="login-button">登录 / Sign In</button>
+          
+          <div id="error" class="error-message"></div>
+        </form>
       </div>
-      <button type="submit">Login</button>
-      <div id="error" class="error"></div>
-    </form>
-    <div class="demo-info">
-      <strong>Demo Account:</strong><br>
-      Username: DANGO888<br>
-      Password: dango888
+      
+      <div class="login-footer">
+        <div class="footer-text">© 2026 Bank of China Global. All rights reserved.</div>
+        <div class="security-badge">🔒 Secure Connection</div>
+      </div>
     </div>
   </div>
+  
   <script>
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const username = e.target.username.value;
-      const password = e.target.password.value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error');
+      
+      errorDiv.textContent = '';
       
       try {
         const res = await fetch('/api/login', {
@@ -233,10 +297,10 @@ function getLoginPage() {
         if (data.success) {
           window.location.href = data.redirect;
         } else {
-          document.getElementById('error').textContent = 'Invalid credentials';
+          errorDiv.textContent = 'Invalid credentials. Please try again.';
         }
       } catch (err) {
-        document.getElementById('error').textContent = 'Login failed';
+        errorDiv.textContent = 'Connection error. Please try again.';
       }
     });
   </script>
@@ -246,70 +310,214 @@ function getLoginPage() {
 
 function getDashboardPage(user) {
   return `<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>Dashboard - Bank of China Global</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>账户仪表板 | Account Dashboard</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
       background: #f5f5f5;
     }
+    
     .navbar {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
-      padding: 20px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    
+    .navbar-brand {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .navbar-menu {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .navbar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      transition: opacity 0.3s;
+    }
+    
+    .navbar-menu a:hover {
+      opacity: 0.8;
+    }
+    
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
     }
-    .card {
+    
+    .welcome-section {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
     }
-    .balance {
-      font-size: 2.5em;
-      color: #CC0000;
-      font-weight: bold;
-      margin: 20px 0;
+    
+    .welcome-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 30px;
     }
-    .user-info {
-      color: #666;
-      margin: 10px 0;
+    
+    .account-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
     }
-    button {
-      background: #CC0000;
+    
+    .info-item {
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 15px;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+    }
+    
+    .balance-card {
+      background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(204, 0, 0, 0.2);
+      grid-column: 1 / -1;
     }
-    button:hover {
-      background: #990000;
+    
+    .balance-label {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .balance-amount {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .balance-currency {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 8px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+    }
+    
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+    
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
   <div class="navbar">
-    <div>🏦 Bank of China Global</div>
-    <a href="/api/logout" style="color: white; text-decoration: none;">Logout</a>
-  </div>
-  <div class="container">
-    <div class="card">
-      <h1>Welcome back, ${user.full_name || user.username}!</h1>
-      <div class="user-info">Account: ${user.username}</div>
-      <div class="user-info">Account Balance:</div>
-      <div class="balance">$${user.balance.toFixed(2)} USD</div>
+    <div class="navbar-brand">中国银行 | BOC</div>
+    <div class="navbar-menu">
+      <span>${user.full_name || 'Account'}</span>
+      <a href="/api/logout">登出 / Logout</a>
     </div>
+  </div>
+  
+  <div class="container">
+    <div class="welcome-section">
+      <h1 class="welcome-title">欢迎回来 / Welcome Back</h1>
+      
+      <div class="account-info">
+        <div class="info-item">
+          <div class="info-label">账户 / Account</div>
+          <div class="info-value">${user.username}</div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-label">账户类型 / Account Type</div>
+          <div class="info-value">Premium</div>
+        </div>
+        
+        <div class="balance-card">
+          <div class="balance-label">账户余额 / Account Balance</div>
+          <div class="balance-amount">$${user.balance.toFixed(2)}</div>
+          <div class="balance-currency">USD - United States Dollar</div>
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn btn-primary">转账 / Transfer</button>
+        <button class="btn btn-secondary">查看交易 / View Transactions</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>© 2026 Bank of China Global. All rights reserved. | 中国银行版权所有</p>
   </div>
 </body>
 </html>`;
@@ -317,82 +525,127 @@ function getDashboardPage(user) {
 
 function getAdminPage() {
   return `<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>Admin Panel - Bank of China Global</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理面板 | Admin Panel</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
       background: #f5f5f5;
     }
+    
     .navbar {
       background: linear-gradient(135deg, #CC0000 0%, #B8960C 100%);
       color: white;
-      padding: 20px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    
+    .navbar-brand {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .navbar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    
     .container {
       max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
     }
-    .card {
+    
+    .admin-section {
       background: white;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+    
+    .admin-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
     }
-    th, td {
+    
+    th {
+      background: #f8f8f8;
       padding: 12px;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      font-size: 12px;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e0e0e0;
     }
-    th {
-      background: #CC0000;
-      color: white;
+    
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+      color: #333;
     }
-    button {
-      background: #CC0000;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
+    
+    tr:hover {
+      background: #f8f8f8;
     }
-    button:hover {
-      background: #990000;
+    
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-size: 12px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
   <div class="navbar">
-    <div>🏦 Bank of China Global - Admin Panel</div>
-    <a href="/api/logout" style="color: white; text-decoration: none;">Logout</a>
+    <div class="navbar-brand">中国银行 | BOC - 管理面板</div>
+    <a href="/api/logout" style="color: white; text-decoration: none;">登出 / Logout</a>
   </div>
+  
   <div class="container">
-    <div class="card">
-      <h1>Customer Management</h1>
+    <div class="admin-section">
+      <h1 class="admin-title">客户管理 / Customer Management</h1>
+      
       <table id="usersTable">
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Full Name</th>
-            <th>Balance</th>
-            <th>Role</th>
+            <th>用户名 / Username</th>
+            <th>姓名 / Full Name</th>
+            <th>余额 / Balance</th>
+            <th>角色 / Role</th>
           </tr>
         </thead>
         <tbody id="usersBody"></tbody>
       </table>
     </div>
   </div>
+  
+  <div class="footer">
+    <p>© 2026 Bank of China Global. All rights reserved.</p>
+  </div>
+  
   <script>
     async function loadUsers() {
       try {
