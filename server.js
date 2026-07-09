@@ -641,25 +641,25 @@ function getDashboardPage(user) {
             </tr>
             <tr>
               <td>2026-03-12</td>
-              <td>$12,350.00</td>
+              <td>$10,533.83</td>
               <td>转账 / Transfer</td>
               <td><span class="status-completed">已完成 / Completed</span></td>
             </tr>
             <tr>
               <td>2026-04-23</td>
-              <td>$5,116.50</td>
+              <td>$4,519.84</td>
               <td>转账 / Transfer</td>
               <td><span class="status-completed">已完成 / Completed</span></td>
             </tr>
             <tr>
               <td>2026-05-26</td>
-              <td>$12,350.00</td>
+              <td>$14,010.00</td>
               <td>转账 / Transfer</td>
               <td><span class="status-completed">已完成 / Completed</span></td>
             </tr>
             <tr>
               <td>2026-06-21</td>
-              <td>$5,116.50</td>
+              <td>$5,869.33</td>
               <td>转账 / Transfer</td>
               <td><span class="status-completed">已完成 / Completed</span></td>
             </tr>
